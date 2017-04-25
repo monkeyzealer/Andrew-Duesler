@@ -93,7 +93,7 @@ class NavBar extends React.PureComponent {
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("token");
     alert("Good Riddens");
-    this.context.router.push(this.props.location.pathname);
+    this.context.router.push("/");
   }
 
 
@@ -105,8 +105,10 @@ class NavBar extends React.PureComponent {
       display:"flex",
       flexDirection:"row",
       justifyContent:"space-between",
-      backgroundSize: "100% 100% !important",
       background: "url(http://bgfons.com/upload/wood_texture3753.jpg)",
+      backgroundSize: "100% 100%",
+      borderTop: "2px solid black",
+      borderBottom: "2px solid black"
     }
 
     const titleStyle = {

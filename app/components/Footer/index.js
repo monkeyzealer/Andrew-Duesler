@@ -9,14 +9,15 @@ import React from 'react';
 class Footer extends React.PureComponent {
   render() {
     const footer={
-      backgroundSize: "100% 100% !important",
       background: "url(http://bgfons.com/upload/wood_texture3753.jpg)",
+      backgroundSize: "100% 100%",
       color: "white",
       display: "flex",
       flexDirection: "row",
       flexWrap: "wrap",
       fontSize: "14px",
       fontFamily: "Arial",
+      borderTop: "1px solid black",
     }
     const footerInfo={
       width: "50%",

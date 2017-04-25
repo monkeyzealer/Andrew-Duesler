@@ -62,6 +62,7 @@ export default class Single extends React.PureComponent {
     })
   }
   storeComment = () =>{
+    var comments = this.state.comments;
     var data = new FormData();
     data.append("commentBody", this.state.commentBody);
     data.append("articleID", this.props.params.id);
@@ -81,9 +82,50 @@ export default class Single extends React.PureComponent {
         alert(json.error);
       }
       else if (json.success) {
+        //puts the new comment at the top of the comment box
+        comments.unshift(json.data);
+        this.setState({
+          comments:comments
+        })
+        //forces it to update the comment box
+        this.forceUpdate();
         alert(json.success);
       }
+    }.bind(this))
+  }
+  deleteComment = () =>{
+    var _this = this;
+    fetch("http://localhost:8000/api/deleteComment/" + this.props.params.id + "?token=" + this.state.token, {
+      method: "post"
     })
+    .then(function(res){
+      return res.json();
+    })
+    .then(function(json){
+      if(json.success)
+      {
+        alert(json.success);
+        _this.context.router.push("/");
+      }
+      else if(json.error)
+      {
+        alert(json.error);
+      }
+    })
+
+    var deleteComment = "";
+
+    //if user isnt logged in it will show the Sign Link
+    if(this.state.user === null)
+    {
+     deleteComment = "";
+    }
+    //if user is logged in it will show the dashboard and sign out links
+    else {
+      if(this.state.user.roleID !== 1) {
+        deleteComment = "";
+      }
+    }
   }
   destroyArticle = () =>{
     var _this = this;
@@ -135,14 +177,17 @@ export default class Single extends React.PureComponent {
       backgroundSize: "100% 100%",
       display: "flex",
       flexDirection: "column",
-    };
+      paddingBottom: "20px",
+      paddingTop: "10px",
+      };
     const postContent={
       marginTop: "0",
       paddingLeft: "10px",
       paddingRight: "10px",
       margin: "0 auto",
       maxWidth: "100%",
-      marginBottom: "20px"
+      marginBottom: "20px",
+      fontSize: "20px"
     }
     const postContentheader={
       width: "100%",
@@ -155,11 +200,12 @@ export default class Single extends React.PureComponent {
     const imagePost={
       width:"auto",
       maxWidth: "90%",
-      height:"auto"
+      height:"auto",
+      marginBottom: "20px"
     }
     const imagePostContainer={
       width: "100%",
-      marginTop: "10px",
+      marginTop: "20px",
       textAlign: "center",
       justifyContent: "center",
       minHeight: "150px"
@@ -200,9 +246,15 @@ export default class Single extends React.PureComponent {
     const footerStyle ={
       alignSelf: "flex-end",
     };
-    const navLink ={
+    const editLink ={
       textAlign: "center",
       marginTop: "0",
+      marginBottom: "5px"
+    };
+    const deleteLink ={
+      textAlign: "center",
+      marginTop: "0",
+      marginBottom: "20px"
     };
     const chatBox={
       background: "url(http://i1065.photobucket.com/albums/u395/monkeyzealer/wood_background-Recovered_zpspkq9xazm.gif)",
@@ -213,15 +265,19 @@ export default class Single extends React.PureComponent {
     const commentContainer={
       width: "100%",
       width: "100%",
-      padding: "0.5em",
       display: "flex",
       flexWrap: "wrap",
       flexDirection: "row",
+      background: "url(http://i1065.photobucket.com/albums/u395/monkeyzealer/wood_background-Recovered_zpspkq9xazm.gif)",
+      backgroundSize: "100% 100%",
     };
     const userComment={
       display: "flex",
-      width: "90%",
-      flexDirection: "column"
+      width: "100%",
+      flexDirection: "column",
+      borderTop: "1px solid white",
+      padding: "15px",
+      background: "rgba(255, 255, 255, 0.298039)",
     };
     const userName={
       textDecoration: "bold",
@@ -236,7 +292,7 @@ export default class Single extends React.PureComponent {
       margin: "0",
       paddingLeft: "5px",
     };
-    const MessageBox={
+    const commentInputBox={
       marginLeft: "1em",
       marginRight: "0",
       marginBottom: "0",
@@ -245,9 +301,12 @@ export default class Single extends React.PureComponent {
       height: "255px",
     };
     const commentBox={
-
+      width: "100%",
+      borderTop: "1px solid white",
+      paddingTop: "20px",
+      color: "white",
     }
-    const messageTitle={
+    const commentInputTitle={
       paddingLeft: "1em",
       paddingRight: "1em",
       marginBottom: "0",
@@ -256,6 +315,9 @@ export default class Single extends React.PureComponent {
       fontWeight: "bold",
       marginTop: "0"
     };
+    const deleteComment={
+      float: "left",
+    }
     const styles = {
       underlineStyle: {
         borderColor: brown700,
@@ -281,8 +343,9 @@ export default class Single extends React.PureComponent {
         paddingLeft: "10px",
         paddingRight: "10px",
         paddingTop: "5px",
-        paddingBottom: "5px"
-      },
+        paddingBottom: "5px",
+        color: "white",
+        },
       uploadButton: {
         verticalAlign: 'middle',
         color: "white",
@@ -318,35 +381,33 @@ export default class Single extends React.PureComponent {
             </div>
             <h1 style={postContentheader}>{this.state.article.subject}</h1>
             <p style={postContent}>{this.state.article.body}</p>
-            <p style={navLink}><Link activeStyle={{color:'#C8B560'}} to={`/update/${this.props.params.id}`}>Edit</Link></p>
-            <p style={navLink}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.destroyArticle}>Delete Post</button></p>
+            <p style={editLink}><Link activeStyle={{color:'#C8B560'}} to={`/update/${this.props.params.id}`}>Edit</Link></p>
+            <p style={deleteLink}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.destroyArticle}>Delete Post</button></p>
           </div>
           <div style={commentContainer}>
             {this.state.comments.map((comment,i) => (
-              <div style={userComment}>
+              <div style={userComment} key={i}>
+              <p style={deleteComment}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.deleteComment}>X</button></p>
                 <p style={timestamp}>{comment.commentDate}</p>
                 <h2 style={userName}>{comment.name}</h2>
                 <p style={comment}>{comment.body}</p>
               </div>
             ))}
-          </div>
-          <div>
-              <p style={messageTitle}>Comment here:</p>
-              <TextField style={MessageBox}
-                multiLine={true}
-                rows={10}
-                textareaStyle={styles.textareaStyle}
-                underlineStyle={styles.underlineStyle}
-                underlineFocusStyle={styles.underlineFocusStyle}
-                onChange={this.handleComment}
-                />
-               <br />
-               <RaisedButton style={styles.button2} type="submit"
-               label="Submit" onTouchTap={this.storeComment}
-               className="button-submit" primary={true} />
-          </div>
-          <div style={chatBox}>
-          <div id="chatbox"><iframe src="http://codemonkey.ishoutbox.com" width="100%" height="555" frameborder="0" valign="middle" allowtransparency="true"></iframe></div>
+            <div style={commentBox}>
+                <p style={commentInputTitle}>Comment here:</p>
+                <TextField style={commentInputBox}
+                  multiLine={true}
+                  rows={10}
+                  textareaStyle={styles.textareaStyle}
+                  underlineStyle={styles.underlineStyle}
+                  underlineFocusStyle={styles.underlineFocusStyle}
+                  onChange={this.handleComment}
+                  />
+                 <br />
+                 <RaisedButton style={styles.button2} type="submit"
+                 label="Submit" onTouchTap={this.storeComment}
+                 className="button-submit" primary={true} />
+            </div>
           </div>
         </main>
         </Responsive>
@@ -358,18 +419,33 @@ export default class Single extends React.PureComponent {
           </div>
           <h1 style={postContentheader}>{this.state.article.subject}</h1>
           <p style={postContent}>{this.state.article.body}</p>
-          <p style={navLink}><Link activeStyle={{color:'#C8B560'}} to={`/update/${this.props.params.id}`}>Edit</Link></p>
-          <p style={navLink}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.destroyArticle}>Delete Post</button></p>
+          <p style={editLink}><Link activeStyle={{color:'#C8B560'}} to={`/update/${this.props.params.id}`}>Edit</Link></p>
+          <p style={deleteLink}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.destroyArticle}>Delete Post</button></p>
           </div>
           <div style={commentContainer}>
-                <div style={userComment}>
-                <p style={timestamp}>timestamp</p>
-                <h2 style={userName}>UserName</h2>
-                <p style={comment}>Text</p>
+            {this.state.comments.map((comment,i) => (
+              <div style={userComment} key={i}>>
+                <p style={deleteComment}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.deleteComment}>X</button></p>
+                <p style={timestamp}>{comment.commentDate}</p>
+                <h2 style={userName}>{comment.name}</h2>
+                <p style={comment}>{comment.body}</p>
               </div>
+            ))}
           </div>
-          <div style={chatBox}>
-          <div id="chatbox"><iframe src="http://codemonkey.ishoutbox.com" width="100%" height="555" frameborder="0" valign="middle" allowtransparency="true"></iframe></div>
+          <div style={commentBox}>
+              <p style={commentInputTitle}>Comment here:</p>
+              <TextField style={commentInputBox}
+                multiLine={true}
+                rows={10}
+                textareaStyle={styles.textareaStyle}
+                underlineStyle={styles.underlineStyle}
+                underlineFocusStyle={styles.underlineFocusStyle}
+                onChange={this.handleComment}
+                />
+               <br />
+               <RaisedButton style={styles.button2} type="submit"
+               label="Submit" onTouchTap={this.storeComment}
+               className="button-submit" primary={true} />
           </div>
         </main>
         </Responsive>

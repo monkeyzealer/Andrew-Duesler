@@ -65,6 +65,13 @@ color: #C8B560 !important;
     height: auto;
     background: rgba(0, 0, 0, 0.298039);
 }
+a.ContactEmail {
+    color: palegoldenrod;
+    text-decoration: none;
+}
+a.ContactEmail:hover {
+    color: #C8B560;
+}
 iframe {
     border: none;
 }
@@ -73,7 +80,6 @@ iframe {
     margin-bottom: 0;
   }
   footer  {
-    background: url(http://bgfons.com/upload/wood_texture3753.jpg);
-    background-size: 100% 100% !important;
+
   }
 `;
