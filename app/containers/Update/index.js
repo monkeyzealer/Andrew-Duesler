@@ -33,7 +33,7 @@ export default class Update extends React.PureComponent {
     }
   }
   componentWillMount(){
-    fetch("http://localhost:8000/api/showArticle/" + this.props.params.id)
+    fetch("http://codemonkeytestsites.com/api/showArticle/" + this.props.params.id)
     .then(function(res){
       return res.json()
     })
@@ -79,7 +79,7 @@ export default class Update extends React.PureComponent {
     data.append("subject", this.state.subject);
     data.append("body", this.state.body);
 
-    fetch("http://localhost:8000/api/updateArticle/"+this.props.params.id+"?token="+this.state.token, {
+    fetch("http://codemonkeytestsites.com/api/updateArticle/"+this.props.params.id+"?token="+this.state.token, {
       method:"post",
       body: data
     })

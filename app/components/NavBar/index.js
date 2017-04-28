@@ -18,7 +18,7 @@ class NavBar extends React.PureComponent {
     this.state = {
       menuOpen:false,
       siteName:"http://localhost:3000",
-      user:JSON.parse(sessionStorage.getItem("user"))
+      user:sessionStorage.getItem("user")
     }
   }
 
@@ -59,6 +59,8 @@ class NavBar extends React.PureComponent {
 
     var signOutLink = <Link activeStyle={{color:'#C8B560'}} onTouchTap={() => this.signOut()} style={navLink}>Sign Out</Link>;
 
+    var registerLink = "";
+
     var signInLink = "";
 
     var _this = this
@@ -68,9 +70,11 @@ class NavBar extends React.PureComponent {
      dashLink = "";
      signOutLink = "";
      signInLink = <Link activeStyle={{color:'#C8B560'}} to="/auth" style={navLink}>Sign In</Link>;
+     registerLink = <Link activeStyle={{color:'#C8B560'}} to="/signup" style={navLink}>Register</Link>;
     }
     else {
       signInLink = "";
+      registerLink = "";
       if(this.state.user.roleID !== 1) {
         dashLink = "";
       }
@@ -84,6 +88,7 @@ class NavBar extends React.PureComponent {
           <Link activeStyle={{color:'#C8B560'}} to="/about" style={navLink}>About</Link>
           {dashLink}
           {signOutLink}
+          {registerLink}
           {signInLink}
         </nav>
       )
@@ -142,16 +147,20 @@ class NavBar extends React.PureComponent {
 
     var signInLink = "";
 
+    var registerLink = "";
+
     //if user isnt logged in it will show the Sign Link
     if(this.state.user === null)
     {
      dashLink = "";
      signOutLink = "";
      signInLink = <Link activeStyle={{color:'#C8B560'}} to="/auth" style={navLink}>Sign In</Link>;
+     registerLink = <Link activeStyle={{color:'#C8B560'}} to="/signup" style={navLink}>Register</Link>;
     }
     //if user is logged in it will show the dashboard and sign out links
     else {
       signInLink = "";
+      registerLink = "";
       if(this.state.user.roleID !== 1) {
         dashLink = "";
       }
@@ -168,6 +177,7 @@ class NavBar extends React.PureComponent {
               <Link activeStyle={{color:'#C8B560'}} to="/about" style={navLink}>About</Link>
               {dashLink}
               {signOutLink}
+              {registerLink}
               {signInLink}
             </nav>
           </nav>

@@ -43,7 +43,7 @@ export default class Auth extends React.PureComponent {
       data.append("email", this.state.email);
       data.append("password", this.state.password);
 
-      fetch("http://localhost:8000/api/signIn", {
+      fetch("http://codemonkeytestsites.com/api/signIn", {
         method:"post",
         body: data
       })
@@ -56,12 +56,12 @@ export default class Auth extends React.PureComponent {
         }
         else if (json.token) {
           sessionStorage.setItem("token", json.token);
-          fetch("http://localhost:8000/api/getUser?token="+json.token)
+          fetch("http://codemonkeytestsites.com/api/getUser?token="+json.token)
           .then(function(res){
             return res.json();
           })
           .then(function(json){
-            sessionStorage.setItem("user", JSON.stringify(json.user));
+            sessionStorage.setItem("user", json.user);
             alert("success");
             _this.context.router.push("/");
           })

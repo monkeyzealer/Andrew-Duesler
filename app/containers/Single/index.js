@@ -35,7 +35,7 @@ export default class Single extends React.PureComponent {
     }
   }
   componentWillMount(){
-    fetch("http://localhost:8000/api/showArticle/" + this.props.params.id)
+    fetch("http://codemonkeytestsites.com/api/showArticle/" + this.props.params.id)
     .then(function(res){
       return res.json()
     })
@@ -45,7 +45,7 @@ export default class Single extends React.PureComponent {
       })
     }.bind(this))
 
-    fetch("http://localhost:8000/api/getComments/" + this.props.params.id)
+    fetch("http://codemonkeytestsites.com/api/getComments/" + this.props.params.id)
     .then(function(res){
       return res.json()
     })
@@ -67,7 +67,7 @@ export default class Single extends React.PureComponent {
     data.append("commentBody", this.state.commentBody);
     data.append("articleID", this.props.params.id);
 
-    fetch("http://localhost:8000/api/storeComment?token=" + this.state.token,
+    fetch("http://codemonkeytestsites.com/api/storeComment?token=" + this.state.token,
     {
       method:"post",
       body: data
@@ -95,7 +95,7 @@ export default class Single extends React.PureComponent {
   }
   deleteComment = () =>{
     var _this = this;
-    fetch("http://localhost:8000/api/deleteComment/" + this.props.params.id + "?token=" + this.state.token, {
+    fetch("http://codemonkeytestsites.com/api/deleteComment/" + this.props.params.id + "?token=" + this.state.token, {
       method: "post"
     })
     .then(function(res){
@@ -129,7 +129,7 @@ export default class Single extends React.PureComponent {
   }
   destroyArticle = () =>{
     var _this = this;
-    fetch("http://localhost:8000/api/destroyArticle/" + this.props.params.id + "?token=" + this.state.token, {
+    fetch("http://codemonkeytestsites.com/api/destroyArticle/" + this.props.params.id + "?token=" + this.state.token, {
       method: "post"
     })
     .then(function(res){

@@ -51,7 +51,7 @@ export default class SignUp extends React.PureComponent {
     data.append("password", this.state.password);
     data.append("username", this.state.username);
 
-    fetch("http://localhost:8000/api/signUp", {
+    fetch("http://codemonkeytestsites.com/api/signUp", {
       method:"post",
       body: data
     })

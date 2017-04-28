@@ -29,12 +29,14 @@ class Footer extends React.PureComponent {
       paddingBottom: "0.2em",
       paddingLeft: "10%",
       textAlign: "left",
+      marginTop: "10px",
     };
     const footRight={
       paddingTop: "0.2em",
       paddingBottom: "0.5em",
       paddingRight: "10%",
       textAlign: "right",
+      marginTop: "10px",
     };
 
     return (

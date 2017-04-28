@@ -36,7 +36,7 @@ export default class Home extends React.PureComponent {
     }
   }
   componentWillMount(){
-    fetch("http://localhost:8000/api/getArticles")
+    fetch("http://codemonkeytestsites.com/api/getArticles")
     .then(function(res){
       return res.json()
     })

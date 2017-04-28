@@ -66,7 +66,7 @@ export default class Dashboard extends React.PureComponent {
     data.append("subject", this.state.subject);
     data.append("body", this.state.body);
 
-    fetch("http://localhost:8000/api/storeArticle?token="+this.state.token, {
+    fetch("http://codemonkeytestsites.com/api/storeArticle?token="+this.state.token, {
       method:"post",
       body: data
     })
