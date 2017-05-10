@@ -18,10 +18,13 @@ class NavBar extends React.PureComponent {
     this.state = {
       menuOpen:false,
       siteName:"http://localhost:3000",
-      user:sessionStorage.getItem("user")
+      user:JSON.parse(sessionStorage.getItem("user"))
     }
   }
-
+  componentWillMount()
+  {
+  console.log(this.state.user);  
+  }
   handleMenu = () => {
     if(this.state.menuOpen == false)
     {

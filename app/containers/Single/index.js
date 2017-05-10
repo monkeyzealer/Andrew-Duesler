@@ -70,7 +70,8 @@ export default class Single extends React.PureComponent {
     fetch("http://codemonkeytestsites.com/api/storeComment?token=" + this.state.token,
     {
       method:"post",
-      body: data
+      body: data,
+      headers:{"Authorization":"bearer "+this.state.token}
     })
 
 
@@ -96,7 +97,8 @@ export default class Single extends React.PureComponent {
   deleteComment = () =>{
     var _this = this;
     fetch("http://codemonkeytestsites.com/api/deleteComment/" + this.props.params.id + "?token=" + this.state.token, {
-      method: "post"
+      method: "post",
+      headers:{"Authorization":"bearer "+this.state.token}
     })
     .then(function(res){
       return res.json();
@@ -130,7 +132,8 @@ export default class Single extends React.PureComponent {
   destroyArticle = () =>{
     var _this = this;
     fetch("http://codemonkeytestsites.com/api/destroyArticle/" + this.props.params.id + "?token=" + this.state.token, {
-      method: "post"
+      method: "post",
+      headers:{"Authorization":"bearer "+this.state.token}
     })
     .then(function(res){
       return res.json();

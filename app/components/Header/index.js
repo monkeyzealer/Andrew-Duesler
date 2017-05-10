@@ -63,7 +63,7 @@ class Header extends React.PureComponent {
       <header>
         <div style={contact}>Contact Info - Phone number: (706) 699-6533 Email: <Link className="ContactEmail" to="mailto:monkeyzealer@gmail.com">monkeyzealer@gmail.com</Link></div>
         <div style={headerbackground}>
-        <h1 style={headerTitle}><img style={headerImg} src="http://i1065.photobucket.com/albums/u395/monkeyzealer/logocm_zpsmpucxtnh.png" /></h1>
+        <h1 style={headerTitle}><img style={headerImg} src="http://i1065.photobucket.com/albums/u395/monkeyzealer/logocm_zpsbhqtnfuc.png" /></h1>
         </div>
         <NavBar />
       </header>

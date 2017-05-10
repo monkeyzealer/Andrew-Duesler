@@ -68,7 +68,8 @@ export default class Dashboard extends React.PureComponent {
 
     fetch("http://codemonkeytestsites.com/api/storeArticle?token="+this.state.token, {
       method:"post",
-      body: data
+      body: data,
+      headers: {"Authorization":"bearer "+this.state.token}
     })
     .then(function(res){
       return res.json()

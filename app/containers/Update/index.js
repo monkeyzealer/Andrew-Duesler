@@ -81,7 +81,8 @@ export default class Update extends React.PureComponent {
 
     fetch("http://codemonkeytestsites.com/api/updateArticle/"+this.props.params.id+"?token="+this.state.token, {
       method:"post",
-      body: data
+      body: data,
+      headers:{"Authorization":"bearer "+this.state.token}
     })
     .then(function(res){
       return res.json()

@@ -56,12 +56,14 @@ export default class Auth extends React.PureComponent {
         }
         else if (json.token) {
           sessionStorage.setItem("token", json.token);
-          fetch("http://codemonkeytestsites.com/api/getUser?token="+json.token)
+          fetch("http://codemonkeytestsites.com/api/getUser?token="+json.token, {
+            headers:{"Authorization":"Bearer "+json.token}
+          })
           .then(function(res){
             return res.json();
           })
           .then(function(json){
-            sessionStorage.setItem("user", json.user);
+            sessionStorage.setItem("user", JSON.stringify(json.user));
             alert("success");
             _this.context.router.push("/");
           })
