@@ -8,7 +8,7 @@ I Graduated North Georgia tech with a associates degree in Web Development. I ha
 4. I learned how to work and code as a team
 
 ## Demo
-[Demo](https://www.codemonkeytestsites.com)
+[Demo](http://codemonkeytestsites.com/)
 
 ## Screenshots
 ![alt text](http://i1065.photobucket.com/albums/u395/monkeyzealer/screenshot%201_zpshnwemaul.png)

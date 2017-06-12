@@ -32,6 +32,8 @@ export default class Single extends React.PureComponent {
       token: sessionStorage.getItem("token"),
       commentBody: "",
       comments:[],
+      comment:"",
+      user:JSON.parse(sessionStorage.getItem("user")),
     }
   }
   componentWillMount(){
@@ -94,9 +96,9 @@ export default class Single extends React.PureComponent {
       }
     }.bind(this))
   }
-  deleteComment = () =>{
+  deleteComment = (id) =>{
     var _this = this;
-    fetch("http://codemonkeytestsites.com/api/deleteComment/" + this.props.params.id + "?token=" + this.state.token, {
+    fetch("http://codemonkeytestsites.com/api/deleteComment/" + id + "?token=" + this.state.token, {
       method: "post",
       headers:{"Authorization":"bearer "+this.state.token}
     })
@@ -107,7 +109,7 @@ export default class Single extends React.PureComponent {
       if(json.success)
       {
         alert(json.success);
-        _this.context.router.push("/");
+        window.location.reload();
       }
       else if(json.error)
       {
@@ -390,7 +392,7 @@ export default class Single extends React.PureComponent {
           <div style={commentContainer}>
             {this.state.comments.map((comment,i) => (
               <div style={userComment} key={i}>
-              <p style={deleteComment}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.deleteComment}>X</button></p>
+              <p style={deleteComment}><button activeStyle={{color:'#C8B560'}} onTouchTap={() => this.deleteComment(comment.id)}>X</button></p>
                 <p style={timestamp}>{comment.commentDate}</p>
                 <h2 style={userName}>{comment.name}</h2>
                 <p style={comment}>{comment.body}</p>
@@ -428,7 +430,7 @@ export default class Single extends React.PureComponent {
           <div style={commentContainer}>
             {this.state.comments.map((comment,i) => (
               <div style={userComment} key={i}>>
-                <p style={deleteComment}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.deleteComment}>X</button></p>
+                <p style={deleteComment}><button activeStyle={{color:'#C8B560'}} onTouchTap={() => this.deleteComment(comment.id)}>X</button></p>
                 <p style={timestamp}>{comment.commentDate}</p>
                 <h2 style={userName}>{comment.name}</h2>
                 <p style={comment}>{comment.body}</p>

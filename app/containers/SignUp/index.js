@@ -90,6 +90,7 @@ export default class SignUp extends React.PureComponent {
       flexWrap: "wrap",
       flexDirection: "column",
       paddingBottom: "20px",
+      justifyContent: "center"
     };
     const userNameBox={
       width: "100%",
@@ -129,10 +130,7 @@ export default class SignUp extends React.PureComponent {
     }
     const formContainer={
       width:"350px",
-      margin: "0 auto",
-      position: "relative",
-      top: "50%",
-      transform: "translateY(-50%)",
+      margin: "20px auto 10px",
     };
     const styles = {
     underlineStyle: {

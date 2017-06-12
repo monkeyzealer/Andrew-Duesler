@@ -40,7 +40,7 @@ export default class Update extends React.PureComponent {
     .then(function(json){
       this.setState({
         subject:json.subject,
-        body:json.subject,
+        body:json.body,
         preview:json.image,
       })
     }.bind(this))
