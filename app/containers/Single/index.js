@@ -254,7 +254,8 @@ export default class Single extends React.PureComponent {
     const editLink ={
       textAlign: "center",
       marginTop: "0",
-      marginBottom: "5px"
+      marginBottom: "20px"
+
     };
     const deleteLink ={
       textAlign: "center",
@@ -374,6 +375,12 @@ export default class Single extends React.PureComponent {
     backgroundColor: brown900,
   },
     };
+    const editbutton={
+      background: "#3E2723",
+      color: "#C8B560",
+      padding: "10px",
+      textDecoration: "none"
+    }
     return (
       <div style={Container}>
         <Helmet title="Single" meta={[ { name: 'description', content: 'Description of Single' }]}/>
@@ -386,7 +393,7 @@ export default class Single extends React.PureComponent {
             </div>
             <h1 style={postContentheader}>{this.state.article.subject}</h1>
             <p style={postContent}>{this.state.article.body}</p>
-            <p style={editLink}><Link activeStyle={{color:'#C8B560'}} to={`/update/${this.props.params.id}`}>Edit</Link></p>
+            <p style={editLink}><Link style={editbutton} activeStyle={{color:'#C8B560'}} to={`/update/${this.props.params.id}`}>Edit</Link></p>
             <p style={deleteLink}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.destroyArticle}>Delete Post</button></p>
           </div>
           <div style={commentContainer}>
@@ -424,7 +431,7 @@ export default class Single extends React.PureComponent {
           </div>
           <h1 style={postContentheader}>{this.state.article.subject}</h1>
           <p style={postContent}>{this.state.article.body}</p>
-          <p style={editLink}><Link activeStyle={{color:'#C8B560'}} to={`/update/${this.props.params.id}`}>Edit</Link></p>
+          <p style={editLink}><Link style={editbutton} activeStyle={{color:'#C8B560'}} to={`/update/${this.props.params.id}`}>Edit</Link></p>
           <p style={deleteLink}><button activeStyle={{color:'#C8B560'}} onTouchTap={this.destroyArticle}>Delete Post</button></p>
           </div>
           <div style={commentContainer}>

@@ -48,6 +48,7 @@ injectGlobal`
   button {
 	background: #3E2723 !important;
   color: #C8B560 !important;
+  padding: 10px;
 }
 button:hover {
 background: rgba(33, 24, 8, 1) !important;
